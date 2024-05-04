@@ -8,13 +8,13 @@ import { revalidatePath } from 'next/cache';
 import {
   createAdminClient,
   createSessionClient,
-} from '../appwrite';
+} from '~/lib/appwrite';
 
 import {
   encryptId,
   extractCustomerIdFromUrl,
   parseStringify,
-} from '../utils';
+} from '~/lib/utils';
 
 import {
   CountryCode,
@@ -26,7 +26,7 @@ import {
 import {
   addFundingSource,
   createDwollaCustomer,
-} from './dwolla.actions';
+} from './dwolla.action';
 
 const {
   APPWRITE_DATABASE_ID: DATABASE_ID,
