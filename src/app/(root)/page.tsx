@@ -1,12 +1,42 @@
 import Image from 'next/image';
 
 import { HeaderBox } from '~/components/HeaderBox';
+import { RecentTransactions } from '~/components/RecentTransactions';
+import { RightSidebar } from '~/components/RightSidebar';
 import { TotalBalanceBox } from '~/components/TotalBalanceBox';
 
 export default function Home() {
   const loggedIn = {};
-  const accountsData = [];
-  const accounts = [];
+  const accountsData = [
+    {
+      name: 'fucking shit',
+      currentBalance: 3000,
+    },
+    {
+      name: 'fucking lol',
+      currentBalance: 30440,
+    },
+    {
+      name: 'shitty lol',
+      currentBalance: 30440,
+    },
+  ];
+
+  const accounts = [
+    {
+      name: 'fucking shit',
+      currentBalance: 3000,
+    },
+    {
+      name: 'fucking lol',
+      currentBalance: 30440,
+    },
+  ];
+
+  const account = [];
+
+  const appwriteItemId = 20;
+  const currentPage = 1;
   // const currentPage = Number(page as string) || 1;
   // const loggedIn = await getLoggedInUser();
   // const accounts = await getAccounts({
@@ -34,18 +64,24 @@ export default function Home() {
             accounts={accountsData}
             totalBanks={accounts?.totalBanks}
             totalCurrentBalance={
-              accounts?.totalCurrentBalance
+              accounts?.totalCurrentBalance || 4000
             }
           />
         </header>
-        {/* 
+
         <RecentTransactions
           accounts={accountsData}
           transactions={account?.transactions}
           appwriteItemId={appwriteItemId}
           page={currentPage}
-        /> */}
+        />
       </div>
+
+      <RightSidebar
+        user={loggedIn}
+        transactions={account?.transactions}
+        banks={accountsData?.slice(0, 2)}
+      />
     </section>
   );
 }
