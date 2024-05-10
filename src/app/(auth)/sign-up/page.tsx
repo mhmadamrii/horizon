@@ -1,7 +1,12 @@
-export default function SignUp() {
+import { getLoggedInUser } from '~/actions/user.action';
+import { AuthForm } from '~/components/AuthForm';
+
+export default async function SignUp() {
+  const user = await getLoggedInUser();
+  console.log('users', user);
   return (
-    <main>
-      <p>Sign up</p>
-    </main>
+    <section className="flex-center size-full max-sm:px-6">
+      <AuthForm type="sign-up" />
+    </section>
   );
 }

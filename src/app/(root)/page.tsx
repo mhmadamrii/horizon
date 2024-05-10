@@ -1,12 +1,11 @@
-import Image from 'next/image';
-
+import { getLoggedInUser } from '~/actions/user.action';
 import { HeaderBox } from '~/components/HeaderBox';
 import { RecentTransactions } from '~/components/RecentTransactions';
 import { RightSidebar } from '~/components/RightSidebar';
 import { TotalBalanceBox } from '~/components/TotalBalanceBox';
 
-export default function Home() {
-  const loggedIn = {};
+export default async function Home() {
+  const loggedIn = await getLoggedInUser();
   const accountsData = [
     {
       name: 'fucking shit',
@@ -33,9 +32,10 @@ export default function Home() {
     },
   ];
 
+  // @ts-ignore
   const account = [];
 
-  const appwriteItemId = 20;
+  const appwriteItemId = '20';
   const currentPage = 1;
   // const currentPage = Number(page as string) || 1;
   // const loggedIn = await getLoggedInUser();
@@ -56,21 +56,26 @@ export default function Home() {
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={loggedIn?.firstName || 'Guest'}
+            user={loggedIn?.name || 'Guest'}
             subtext="Access and manage your account and transactions efficiently."
           />
 
           <TotalBalanceBox
+            // @ts-ignore
             accounts={accountsData}
+            // @ts-ignore
             totalBanks={accounts?.totalBanks}
             totalCurrentBalance={
+              // @ts-ignore
               accounts?.totalCurrentBalance || 4000
             }
           />
         </header>
 
         <RecentTransactions
+          // @ts-ignore
           accounts={accountsData}
+          // @ts-ignore
           transactions={account?.transactions}
           appwriteItemId={appwriteItemId}
           page={currentPage}
@@ -79,7 +84,9 @@ export default function Home() {
 
       <RightSidebar
         user={loggedIn}
+        // @ts-ignore
         transactions={account?.transactions}
+        // @ts-ignore
         banks={accountsData?.slice(0, 2)}
       />
     </section>

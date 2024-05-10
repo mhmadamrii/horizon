@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
 
+import { useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -27,19 +27,18 @@ import {
   getLoggedInUser,
   signIn,
   signUp,
-} from '@/lib/actions/user.actions';
+} from '~/actions/user.action';
 
-import PlaidLink from './PlaidLink';
-import CustomInput from './CustomInput';
+import { PlaidLink } from './PlaidLink';
+import { CustomInput } from './CustomInput';
 
 export const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
+  const formSchema = authFormSchema(type);
+
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const formSchema = authFormSchema(type);
-
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,15 +47,12 @@ export const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  // 2. Define a submit handler.
   const onSubmit = async (
     data: z.infer<typeof formSchema>,
   ) => {
     setIsLoading(true);
 
     try {
-      // Sign up with Appwrite & create plaid token
-
       if (type === 'sign-up') {
         const userData = {
           firstName: data.firstName!,
@@ -72,6 +68,7 @@ export const AuthForm = ({ type }: { type: string }) => {
         };
 
         const newUser = await signUp(userData);
+        console.log('new user', newUser);
 
         setUser(newUser);
       }
@@ -82,6 +79,7 @@ export const AuthForm = ({ type }: { type: string }) => {
           password: data.password,
         });
 
+        console.log('response', response);
         if (response) router.push('/');
       }
     } catch (error) {
@@ -90,6 +88,8 @@ export const AuthForm = ({ type }: { type: string }) => {
       setIsLoading(false);
     }
   };
+
+  console.log('user sign up', user);
 
   return (
     <section className="auth-form">
@@ -104,7 +104,7 @@ export const AuthForm = ({ type }: { type: string }) => {
             height={34}
             alt="Horizon logo"
           />
-          <h1 className="text-26 font-ibm-plex-serif text-black-1 font-bold">
+          <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">
             Horizon
           </h1>
         </Link>
