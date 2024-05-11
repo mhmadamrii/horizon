@@ -98,6 +98,10 @@ export async function getAccount({
       await getTransactionsByBankId({
         bankId: bank.$id,
       });
+    console.log(
+      'transfer transaction',
+      transferTransactionsData,
+    );
 
     const transferTransactions =
       transferTransactionsData.documents.map(

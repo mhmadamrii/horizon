@@ -31,6 +31,7 @@ import {
 
 import { PlaidLink } from './PlaidLink';
 import { CustomInput } from './CustomInput';
+import { toast } from 'react-toastify';
 
 export const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -68,22 +69,37 @@ export const AuthForm = ({ type }: { type: string }) => {
         };
 
         const newUser = await signUp(userData);
-        console.log('new user', newUser);
+        console.log('content', newUser);
 
-        setUser(newUser);
+        if (!newUser.error) {
+          setUser(newUser);
+        } else {
+          toast.error(newUser.error.response.message, {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
+        }
       }
 
       if (type === 'sign-in') {
         const response = await signIn({
           email: data.email,
           password: data.password,
-        });
+        }).catch((err) =>
+          console.log('error message', err),
+        );
 
         console.log('response', response);
         if (response) router.push('/');
       }
     } catch (error) {
-      console.log(error);
+      console.log('error client', error);
     } finally {
       setIsLoading(false);
     }

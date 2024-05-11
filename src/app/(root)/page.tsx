@@ -27,9 +27,8 @@ export default async function Home({
     (id as string) || accountsData[0]?.appwriteItemId;
 
   const account = await getAccount({ appwriteItemId });
-
-  const currentPage = 1;
-  // const currentPage = Number(page as string) || 1;
+  console.log('transactions\n\n\n\n\n', account);
+  const currentPage = Number(page as string) || 1;
 
   return (
     <section className="home">
@@ -38,7 +37,7 @@ export default async function Home({
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={loggedIn?.name || 'Guest'}
+            user={loggedIn?.firstName || 'Guest'}
             subtext="Access and manage your account and transactions efficiently."
           />
 
@@ -52,9 +51,7 @@ export default async function Home({
         </header>
 
         <RecentTransactions
-          // @ts-ignore
           accounts={accountsData}
-          // @ts-ignore
           transactions={account?.transactions}
           appwriteItemId={appwriteItemId}
           page={currentPage}

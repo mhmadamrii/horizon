@@ -71,14 +71,15 @@ export async function signIn({
       secure: true,
     });
 
-    // const user = await getUserInfo({
-    //   userId: session.userId,
-    // });
+    const user = await getUserInfo({
+      userId: session.userId,
+    });
 
     // return parseStringify(session);
-    return parseStringify(session);
+    return parseStringify(user);
   } catch (error) {
     console.error('Error', error);
+    throw new Error();
   }
 }
 
@@ -141,8 +142,11 @@ export async function signUp({
     });
 
     return parseStringify(newUser);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error', error);
+    return {
+      error: parseStringify(error),
+    };
   }
 }
 
@@ -150,8 +154,8 @@ export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
 
-    const user = await account.get();
-    // const user = await getUserInfo({ userId: result.$id });
+    const result = await account.get();
+    const user = await getUserInfo({ userId: result.$id });
 
     return parseStringify(user);
   } catch (error) {

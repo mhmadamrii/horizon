@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Table,
   TableBody,
@@ -77,6 +79,7 @@ export const TransactionsTable = ({
       </TableHeader>
       <TableBody>
         {transactions.map((t: Transaction) => {
+          console.log('transactions', t);
           const status = getTransactionStatus(
             new Date(t.date),
           );

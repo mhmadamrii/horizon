@@ -44,6 +44,7 @@ export async function getTransactionsByBankId({
       TRANSACTION_COLLECTION_ID!,
       [Query.equal('senderBankId', bankId)],
     );
+    console.log('sender transaction', senderTransactions);
 
     const receiverTransactions =
       await database.listDocuments(
