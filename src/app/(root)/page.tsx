@@ -1,53 +1,35 @@
+import {
+  getAccount,
+  getAccounts,
+} from '~/actions/bank.action';
 import { getLoggedInUser } from '~/actions/user.action';
 import { HeaderBox } from '~/components/HeaderBox';
 import { RecentTransactions } from '~/components/RecentTransactions';
 import { RightSidebar } from '~/components/RightSidebar';
 import { TotalBalanceBox } from '~/components/TotalBalanceBox';
 
-export default async function Home() {
+export default async function Home({
+  id,
+  page,
+}: {
+  id: string;
+  page: string;
+}) {
   const loggedIn = await getLoggedInUser();
-  const accountsData = [
-    {
-      name: 'fucking shit',
-      currentBalance: 3000,
-    },
-    {
-      name: 'fucking lol',
-      currentBalance: 30440,
-    },
-    {
-      name: 'shitty lol',
-      currentBalance: 30440,
-    },
-  ];
+  const accounts = await getAccounts({
+    userId: loggedIn.$id,
+  });
 
-  const accounts = [
-    {
-      name: 'fucking shit',
-      currentBalance: 3000,
-    },
-    {
-      name: 'fucking lol',
-      currentBalance: 30440,
-    },
-  ];
+  if (!accounts) return;
 
-  // @ts-ignore
-  const account = [];
+  const accountsData = accounts?.data;
+  const appwriteItemId =
+    (id as string) || accountsData[0]?.appwriteItemId;
 
-  const appwriteItemId = '20';
+  const account = await getAccount({ appwriteItemId });
+
   const currentPage = 1;
   // const currentPage = Number(page as string) || 1;
-  // const loggedIn = await getLoggedInUser();
-  // const accounts = await getAccounts({
-  //   userId: loggedIn.$id
-  // })
-
-  // if(!accounts) return;
-
-  // const accountsData = accounts?.data;
-  // const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
-  // const account = await getAccount({ appwriteItemId })
 
   return (
     <section className="home">
@@ -61,12 +43,9 @@ export default async function Home() {
           />
 
           <TotalBalanceBox
-            // @ts-ignore
             accounts={accountsData}
-            // @ts-ignore
             totalBanks={accounts?.totalBanks}
             totalCurrentBalance={
-              // @ts-ignore
               accounts?.totalCurrentBalance || 4000
             }
           />

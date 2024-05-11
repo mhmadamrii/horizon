@@ -2,12 +2,7 @@ import Image from 'next/image';
 
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
-
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   PlaidLinkOnSuccess,
@@ -15,10 +10,10 @@ import {
   usePlaidLink,
 } from 'react-plaid-link';
 
-// import {
-//   createLinkToken,
-//   exchangePublicToken,
-// } from '~/actions/user.action';
+import {
+  createLinkToken,
+  exchangePublicToken,
+} from '~/actions/user.action';
 
 export const PlaidLink = ({
   user,
@@ -28,20 +23,20 @@ export const PlaidLink = ({
   const [token, setToken] = useState('');
 
   useEffect(() => {
-    // const getLinkToken = async () => {
-    //   const data = await createLinkToken(user);
-    //   setToken(data?.linkToken);
-    // };
-    // getLinkToken();
+    const getLinkToken = async () => {
+      const data = await createLinkToken(user);
+      setToken(data?.linkToken);
+    };
+    getLinkToken();
   }, [user]);
 
   const onSuccess = useCallback<PlaidLinkOnSuccess>(
     async (public_token: string) => {
-      // await exchangePublicToken({
-      //   publicToken: public_token,
-      //   user,
-      // });
-      // router.push('/');
+      await exchangePublicToken({
+        publicToken: public_token,
+        user,
+      });
+      router.push('/');
     },
     [user],
   );
@@ -75,7 +70,7 @@ export const PlaidLink = ({
             width={24}
             height={24}
           />
-          <p className="hiddenl text-black-2 text-[16px] font-semibold xl:block">
+          <p className="hiddenl text-[16px] font-semibold text-black-2 xl:block">
             Connect bank
           </p>
         </Button>
@@ -90,7 +85,7 @@ export const PlaidLink = ({
             width={24}
             height={24}
           />
-          <p className="text-black-2 text-[16px] font-semibold">
+          <p className="text-[16px] font-semibold text-black-2">
             Connect bank
           </p>
         </Button>

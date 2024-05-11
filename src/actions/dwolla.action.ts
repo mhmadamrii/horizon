@@ -63,17 +63,16 @@ export const createOnDemandAuthorization = async () => {
 export const createDwollaCustomer = async (
   newCustomer: NewDwollaCustomerParams,
 ) => {
-  return;
-  // try {
-  //   return await dwollaClient
-  //     .post('customers', newCustomer)
-  //     .then((res) => res.headers.get('location'));
-  // } catch (err) {
-  //   console.error(
-  //     'Creating a Dwolla Customer Failed: ',
-  //     err,
-  //   );
-  // }
+  try {
+    return await dwollaClient
+      .post('customers', newCustomer)
+      .then((res) => res.headers.get('location'));
+  } catch (err) {
+    console.error(
+      'Creating a Dwolla Customer Failed: ',
+      err,
+    );
+  }
 };
 
 export const createTransfer = async ({

@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 export default function GlobalError({
   error,
 }: {
-  error: any;
+  error: Error;
 }) {
   useEffect(() => {
     Sentry.captureException(error);
@@ -16,7 +16,8 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        <Error />
+        {/* <Error /> */}
+        something went wrong
       </body>
     </html>
   );

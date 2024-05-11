@@ -73,6 +73,11 @@ export function formatAmount(amount: number): string {
   return formatter.format(amount);
 }
 
+/**
+ *
+ * @param value_1 parameter that you want to convert
+ * @returns {result of the params(stringified)}
+ */
 export const parseStringify = (value: any) =>
   JSON.parse(JSON.stringify(value));
 
