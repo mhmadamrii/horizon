@@ -17,7 +17,7 @@ export default async function Home({
 }) {
   const loggedIn = await getLoggedInUser();
   const accounts = await getAccounts({
-    userId: loggedIn.$id,
+    userId: loggedIn?.$id,
   });
 
   if (!accounts) return;
@@ -27,8 +27,12 @@ export default async function Home({
     (id as string) || accountsData[0]?.appwriteItemId;
 
   const account = await getAccount({ appwriteItemId });
-  console.log('transactions\n\n\n\n\n', account);
   const currentPage = Number(page as string) || 1;
+
+  console.log({
+    accountsData,
+    account,
+  });
 
   return (
     <section className="home">
@@ -60,9 +64,7 @@ export default async function Home({
 
       <RightSidebar
         user={loggedIn}
-        // @ts-ignore
-        transactions={account?.transactions}
-        // @ts-ignore
+        transactions={accounts?.transactions}
         banks={accountsData?.slice(0, 2)}
       />
     </section>
