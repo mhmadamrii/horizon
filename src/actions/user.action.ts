@@ -78,8 +78,7 @@ export async function signIn({
     // return parseStringify(session);
     return parseStringify(user);
   } catch (error) {
-    console.error('Error', error);
-    throw new Error();
+    return parseStringify(error);
   }
 }
 

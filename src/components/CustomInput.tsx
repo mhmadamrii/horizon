@@ -17,6 +17,7 @@ interface CustomInput {
   name: FieldPath<z.infer<typeof formSchema>>;
   label: string;
   placeholder: string;
+  isLoading?: boolean;
 }
 
 export const CustomInput = ({
@@ -24,6 +25,7 @@ export const CustomInput = ({
   name,
   label,
   placeholder,
+  isLoading,
 }: CustomInput) => {
   return (
     <FormField
@@ -43,6 +45,7 @@ export const CustomInput = ({
                   name === 'password' ? 'password' : 'text'
                 }
                 {...field}
+                disabled={isLoading}
               />
             </FormControl>
             <FormMessage className="form-message mt-2" />

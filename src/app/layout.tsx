@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, IBM_Plex_Serif } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'sonner';
 import './globals.css';
 
 const inter = Inter({
@@ -34,18 +34,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${ibmPlexSerif.variable}`}
       >
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        />
+        <Toaster richColors position="top-right" />
         {children}
       </body>
     </html>

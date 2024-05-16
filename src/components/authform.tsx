@@ -31,7 +31,7 @@ import {
 
 import { PlaidLink } from './PlaidLink';
 import { CustomInput } from './CustomInput';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 export const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -72,18 +72,11 @@ export const AuthForm = ({ type }: { type: string }) => {
         console.log('content', newUser);
 
         if (!newUser.error) {
+          toast.success('Successfully created new data!');
           setUser(newUser);
         } else {
-          toast.error(newUser.error.response.message, {
-            position: 'top-center',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored',
-          });
+          console.log(newUser);
+          toast.error('Something went wrong!');
         }
       }
 
@@ -91,12 +84,15 @@ export const AuthForm = ({ type }: { type: string }) => {
         const response = await signIn({
           email: data.email,
           password: data.password,
-        }).catch((err) =>
-          console.log('error message', err),
-        );
+        });
 
         console.log('response', response);
-        if (response) router.push('/');
+        if (response?.userId) {
+          toast.success('Successfully logged in!');
+          router.push('/');
+        } else {
+          toast.error(response?.response?.message);
+        }
       }
     } catch (error) {
       console.log('error client', error);
@@ -104,8 +100,6 @@ export const AuthForm = ({ type }: { type: string }) => {
       setIsLoading(false);
     }
   };
-
-  console.log('user sign up', user);
 
   return (
     <section className="auth-form">
@@ -215,6 +209,7 @@ export const AuthForm = ({ type }: { type: string }) => {
                 name="email"
                 label="Email"
                 placeholder="Enter your email"
+                isLoading={isLoading}
               />
 
               <CustomInput
@@ -222,6 +217,7 @@ export const AuthForm = ({ type }: { type: string }) => {
                 name="password"
                 label="Password"
                 placeholder="Enter your password"
+                isLoading={isLoading}
               />
 
               <div className="flex flex-col gap-4">
