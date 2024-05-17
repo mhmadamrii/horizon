@@ -69,7 +69,7 @@ export const AuthForm = ({ type }: { type: string }) => {
         };
 
         const newUser = await signUp(userData);
-        console.log('content', newUser);
+        // console.log('content', newUser);
 
         if (!newUser.error) {
           toast.success('Successfully created new data!');
@@ -143,7 +143,7 @@ export const AuthForm = ({ type }: { type: string }) => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8"
+              className="space-y-8 border border-red-500"
             >
               {type === 'sign-up' && (
                 <>

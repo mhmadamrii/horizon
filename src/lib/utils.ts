@@ -224,7 +224,29 @@ export const authFormSchema = (type: string) =>
     state:
       type === 'sign-in'
         ? z.string().optional()
-        : z.string().min(2).max(2),
+        : z
+            .string()
+            .min(2)
+            .max(2)
+            .refine(
+              (val) => {
+                if (type === 'sign-in') {
+                  return true; // Optional for sign-in
+                }
+
+                // Validate state length (2 characters) and allowed values
+                return (
+                  val?.length === 2 &&
+                  /^(NY|ID|CL|etc)$/.test(val)
+                );
+              },
+              {
+                message:
+                  'Invalid state. Please use a 2-letter abbreviation, eg: NY, ID, CL',
+                // Add optional path for more granular error messages (if needed)
+                // path: ['state'],
+              },
+            ),
     postalCode:
       type === 'sign-in'
         ? z.string().optional()
@@ -232,11 +254,34 @@ export const authFormSchema = (type: string) =>
     dateOfBirth:
       type === 'sign-in'
         ? z.string().optional()
-        : z.string().min(3),
+        : z
+            .string()
+            .min(10, {
+              message:
+                'Value must be filled, eg: 2000-03-01',
+            })
+            .refine(
+              (val) => {
+                if (type === 'sign-in') {
+                  return true; // Optional for sign-in
+                }
+
+                // Validate format (YYYY-MM-DD) and existence
+                return (
+                  val && /^\d{4}-\d{2}-\d{2}$/.test(val)
+                );
+              },
+              {
+                message:
+                  'Invalid date format. Please use YYYY-MM-DD, eg: 2000-03-01',
+                // Add optional path for more granular error messages (if needed)
+                // path: ['dateOfBirth'],
+              },
+            ),
     ssn:
       type === 'sign-in'
         ? z.string().optional()
-        : z.string().min(3),
+        : z.string().min(4),
     // both
     email: z.string().email(),
     password: z.string().min(8),
