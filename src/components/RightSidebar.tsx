@@ -10,9 +10,10 @@ export const RightSidebar = ({
   transactions,
   banks,
 }: RightSidebarProps) => {
-  console.log('user', user);
+  // console.log('user', user);
   const categories: CategoryCount[] =
     countTransactionCategories(transactions);
+  console.log('categories', categories);
 
   return (
     <aside className="right-sidebar">

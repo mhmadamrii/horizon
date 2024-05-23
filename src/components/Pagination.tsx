@@ -18,6 +18,7 @@ export const Pagination = ({
   const searchParams = useSearchParams()!;
 
   const handleNavigation = (type: 'prev' | 'next') => {
+    console.log('type pagination', type);
     const pageNumber =
       type === 'prev' ? page - 1 : page + 1;
 
@@ -26,6 +27,8 @@ export const Pagination = ({
       key: 'page',
       value: pageNumber.toString(),
     });
+    console.log('page number', pageNumber);
+    console.log('new url', newUrl);
 
     router.push(newUrl, { scroll: false });
   };

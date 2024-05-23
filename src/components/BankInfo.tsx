@@ -23,6 +23,12 @@ export const BankInfo = ({
 
   const isActive =
     appwriteItemId === account?.appwriteItemId;
+  console.log('is active bank info', isActive);
+  console.log('appwrite item id', appwriteItemId);
+  console.log(
+    'account.appwriteItemID',
+    account?.appwriteItemId,
+  );
 
   const handleBankChange = () => {
     const newUrl = formUrlQuery({
@@ -69,7 +75,7 @@ export const BankInfo = ({
             <p
               className={`text-12 rounded-full px-3 py-1 font-medium text-blue-700 ${colors.subText} ${colors.lightBg}`}
             >
-              {account.subtype}
+              {account.subtype} lorem
             </p>
           )}
         </div>

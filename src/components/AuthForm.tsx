@@ -86,7 +86,7 @@ export const AuthForm = ({ type }: { type: string }) => {
           password: data.password,
         });
 
-        console.log('response', response);
+        // console.log('response', response);
         if (response?.userId) {
           toast.success('Successfully logged in!');
           router.push('/');
@@ -143,7 +143,7 @@ export const AuthForm = ({ type }: { type: string }) => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 border border-red-500"
+              className="space-y-8"
             >
               {type === 'sign-up' && (
                 <>

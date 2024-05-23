@@ -11,6 +11,7 @@ import { TransactionsTable } from './TransactionsTable';
 import { BankTabItem } from './BankTabItem';
 import { BankInfo } from './BankInfo';
 import { Pagination } from './Pagination';
+import Debugger from './Debugger';
 
 export const RecentTransactions = ({
   accounts,
@@ -31,6 +32,9 @@ export const RecentTransactions = ({
     indexOfFirstTransaction,
     indexOfLastTransaction,
   );
+
+  // console.log('current page', currentTransactions);
+  console.log('accoounts', accounts);
 
   return (
     <section className="recent-transactions">
@@ -80,6 +84,11 @@ export const RecentTransactions = ({
             <TransactionsTable
               transactions={currentTransactions}
             />
+            {/* <Debugger
+              transactions={currentTransactions}
+              account={account}
+              value={account.appwriteItemId}
+            /> */}
 
             {totalPages > 1 && (
               <div className="my-4 w-full">

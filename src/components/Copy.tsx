@@ -22,8 +22,8 @@ export const Copy = ({ title }: { title: string }) => {
       variant="secondary"
       onClick={copyToClipboard}
     >
-      <p className="text-black-2 line-clamp-1 w-full max-w-full text-xs font-medium">
-        {title} test
+      <p className="line-clamp-1 w-full max-w-full text-xs font-medium text-black-2">
+        {title}
       </p>
 
       {!hasCopied ? (

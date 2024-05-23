@@ -9,7 +9,7 @@ export const BankCard = ({
   userName,
   showBalance = true,
 }: CreditCardProps) => {
-  console.log(account);
+  console.log('shareable id', account);
 
   return (
     <div className="flex flex-col">

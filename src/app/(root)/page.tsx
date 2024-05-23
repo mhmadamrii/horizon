@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import {
   getAccount,
   getAccounts,
@@ -29,11 +28,12 @@ export default async function Home({
 
   const account = await getAccount({ appwriteItemId });
   const currentPage = Number(page as string) || 1;
+  console.log('current account', account);
 
-  console.log({
-    accountsData,
-    account,
-  });
+  // console.log({
+  //   accountsData,
+  //   account,
+  // });
 
   return (
     <section className="home">

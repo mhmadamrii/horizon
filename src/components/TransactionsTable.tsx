@@ -79,7 +79,7 @@ export const TransactionsTable = ({
       </TableHeader>
       <TableBody>
         {transactions.map((t: Transaction) => {
-          console.log('transactions', t);
+          // console.log('transactions', t);
           const status = getTransactionStatus(
             new Date(t.date),
           );

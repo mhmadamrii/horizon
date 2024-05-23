@@ -14,6 +14,7 @@ export const BankTabItem = ({
   const router = useRouter();
   const isActive =
     appwriteItemId === account?.appwriteItemId;
+  console.log('is active', isActive);
 
   const handleBankChange = () => {
     const newUrl = formUrlQuery({
