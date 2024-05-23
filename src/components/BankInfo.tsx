@@ -75,7 +75,7 @@ export const BankInfo = ({
             <p
               className={`text-12 rounded-full px-3 py-1 font-medium text-blue-700 ${colors.subText} ${colors.lightBg}`}
             >
-              {account.subtype} lorem
+              {account.subtype}
             </p>
           )}
         </div>
